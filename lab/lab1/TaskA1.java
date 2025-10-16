@@ -11,9 +11,9 @@ public class TaskA1 {
     public static void main(String[] args) {
         int number = MainTask.readInt("Введите число: ", false);
         int numberSystem = MainTask.readInt("Введите систему счисления (от 2 до 9): ", true);
-        System.out.println(calculator(number, numberSystem));
+        System.out.println(conversionFromDecimalNotation(number, numberSystem));
     }
-    private static String calculator(int number, int numberSystem) {
+    private static String conversionFromDecimalNotation(int number, int numberSystem) {
         String result = "";
         while (number>0) {
             result = number%numberSystem + result;

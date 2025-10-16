@@ -17,7 +17,7 @@ public class MainTask {
         else System.out.println("Индекс искомого числа: " + indexIterative);
 
         System.out.println("\nРезультат рекурсивный поиска:");
-        int indexRecursive = recursiveSearch(array, value);
+        int indexRecursive = recursiveSearch(array, value, 0, array.length);
         if (indexRecursive == -1) System.out.println("Число отсутствует в массиве");
         else System.out.println("Индекс искомого числа: " + indexRecursive);
     }
@@ -62,22 +62,19 @@ public class MainTask {
 
         return -1;
     }
-    private static int recursiveSearch(int[] array, int value) {
-        int left = 0;
-        int right = array.length;
-        int mid = (left + right) / 2;
+    private static int recursiveSearch(int[] array, int num, int low, int high) {
+        int mid = low + (high - low) / 2;
+        if (low > high) {
+            return -1;
+        }
 
-        if (array[mid] < value) {
-            int[] subArray = new int[right - (mid + 1)];
-            System.arraycopy(array, mid + 1, subArray, 0, subArray.length);
-            int result = recursiveSearch(subArray, value);
-            if (result == -1) return -1;
-            else return result + mid + 1;
-        } else if (array[mid] > value) {
-            int[] subArray = new int[mid];
-            System.arraycopy(array, 0, subArray, 0, subArray.length);
-            return recursiveSearch(subArray, value);
-        } else return mid;
+        if (num == array[mid]) {
+            return mid;
+        } else if (num > array[mid]) {
+            return recursiveSearch(array, num, mid + 1, high);
+        } else {
+            return recursiveSearch(array, num, low, mid - 1);
+        }
     }
 
 }

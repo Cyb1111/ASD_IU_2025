@@ -11,15 +11,19 @@ public class TaskB3 {
     }
     private static int counterArray(int[] array) {
         int minFirst = array[0];
-        int minSecond = array[0];
-
-        for (int number : array) {
-            if (number > 0) {
-                if (number < minFirst || minFirst <= 0) {
+        int minSecond = array[1];
+        if (minSecond < minFirst) {
+        int temp = minFirst;
+        minFirst = minSecond;
+        minSecond = temp;
+        }
+        for (int i = 2; i < array.length; i++) {
+            if (array[i] > 0) {
+                if (array[i] < minFirst || minFirst <= 0) {
                     minSecond = minFirst;
-                    minFirst = number;
-                } else if (number < minSecond || minSecond <= 0) {
-                    minSecond = number;
+                    minFirst = array[i];
+                } else if (array[i] < minSecond || minSecond <= 0) {
+                    minSecond = array[i];
                 }
             }
         }

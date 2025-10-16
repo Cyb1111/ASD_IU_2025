@@ -7,29 +7,59 @@ package lab1;
 
 public class TaskA4 {
     public static void main(String[] args) {
-        sieveOfEratosthenes(MainTask.readInt("Введите число N>2: ",true));
+
+        outputArray(sieveOfEratosthenes(MainTask.readInt("Введите число N>2: ",true)));
     }
 
-    private static void sieveOfEratosthenes(int size) {
-        boolean[] array = new boolean[size+1];
-        for (int i = 0; i < size; i++) {
-            array[i] = true;
+    public static void outputArray(int[] primes) {
+        int n = primes.length;
+        System.out.println("Первые " + n + " простых чисел:");
+        for (int i = 0; i < primes.length; i++) {
+            System.out.print(primes[i]);
+            if (i < primes.length - 1) {
+                System.out.print(", ");
+            }
         }
-        array[0] = false;
-        array[1] = false;
-        for (int number = 2; number*number <= size; number++) {
-            if (array[number]) {
-                for (int i = number*number; i <= size; i += number) {
-                    array[i] = false;
+    }
+    public static int[] sieveOfEratosthenes(int n) {
+        if (n == 0) return new int[0];
+        if (n == 1) return new int[]{2};
+
+        int upperBound;
+        if (n < 6) {
+            upperBound = 20;
+        } else {
+            upperBound = (int)(n * Math.log(n) + n * Math.log(Math.log(n))) + 10;
+        }
+
+        boolean[] isPrime = new boolean[upperBound + 1];
+        for (int i = 2; i <= upperBound; i++) {
+            isPrime[i] = true;
+        }
+
+        for (int p = 2; p * p <= upperBound; p++) {
+            if (isPrime[p]) {
+                for (int i = p * p; i <= upperBound; i += p) {
+                    isPrime[i] = false;
                 }
             }
         }
-        System.out.print("Простые числа до " + size + ": ");
-        for (int i = 2; i <= size; i++) {
-            if (array[i]) {
-                System.out.print(i + " ");
+
+        int count = 0;
+        for (int i = 2; i <= upperBound; i++) {
+            if (isPrime[i]) {
+                count++;
             }
         }
-        System.out.println();
+
+        int[] primes = new int[Math.min(n, count)];
+        int index = 0;
+        for (int i = 2; i <= upperBound && index < primes.length; i++) {
+            if (isPrime[i]) {
+                primes[index++] = i;
+            }
+        }
+
+        return primes;
     }
 }
