@@ -62,18 +62,18 @@ public class MainTask {
 
         return -1;
     }
-    private static int recursiveSearch(int[] array, int num, int low, int high) {
-        int mid = low + (high - low) / 2;
-        if (low > high) {
+    public static int recursiveSearch(int[] array, int value, int left, int right) {
+        if (left > right) {
             return -1;
         }
-
-        if (num == array[mid]) {
+        int mid = left + (right - left) / 2;
+        if (array[mid] == value) {
             return mid;
-        } else if (num > array[mid]) {
-            return recursiveSearch(array, num, mid + 1, high);
+        }
+        if (array[mid] < value) {
+            return recursiveSearch(array, value, mid + 1, right);
         } else {
-            return recursiveSearch(array, num, low, mid - 1);
+            return recursiveSearch(array, value, left, mid - 1);
         }
     }
 

@@ -10,20 +10,15 @@ public class TaskB3 {
         System.out.println(counterArray(MainTask.readArray()));
     }
     private static int counterArray(int[] array) {
-        int minFirst = array[0];
-        int minSecond = array[1];
-        if (minSecond < minFirst) {
-        int temp = minFirst;
-        minFirst = minSecond;
-        minSecond = temp;
-        }
-        for (int i = 2; i < array.length; i++) {
-            if (array[i] > 0) {
-                if (array[i] < minFirst || minFirst <= 0) {
+        int minFirst = Integer.MAX_VALUE;
+        int minSecond = Integer.MAX_VALUE;
+        for (int number : array) {
+            if (number > 0) {
+                if (number < minFirst) {
                     minSecond = minFirst;
-                    minFirst = array[i];
-                } else if (array[i] < minSecond || minSecond <= 0) {
-                    minSecond = array[i];
+                    minFirst = number;
+                } else if (number < minSecond) {
+                    minSecond = number;
                 }
             }
         }
