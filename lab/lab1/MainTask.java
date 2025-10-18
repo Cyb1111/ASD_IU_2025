@@ -63,7 +63,7 @@ public class MainTask {
         return -1;
     }
     public static int recursiveSearch(int[] array, int value, int left, int right) {
-        if (left > right) {
+        if (left >= right) {
             return -1;
         }
         int mid = left + (right - left) / 2;
